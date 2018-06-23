@@ -6,7 +6,7 @@ public class LaserScripts : MonoBehaviour {
     public Sprite laserOnSprite;
     public Sprite laserOffSprite;
    
-    public float switch_Interval = 0.5f;
+    public float switch_Interval = 1f;
     public float rotationSpeed = 0.0f;
   
     private bool isLaserOn = true;
