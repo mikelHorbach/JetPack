@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MouseController : MonoBehaviour {
 
@@ -14,6 +16,9 @@ public class MouseController : MonoBehaviour {
     public ParticleSystem jetpack;
     private bool isDead = false;
     private uint coins = 0;
+    public Text coinsCollectedLabel;
+    public Button restartButton;
+
 
     // Use this for initialization
     void Start () {
@@ -39,6 +44,11 @@ public class MouseController : MonoBehaviour {
         }
         UpdateGroundedStatus();
         AdjustJetpack(jetpackActive);
+
+        if (isDead && isGrounded)
+        {
+            restartButton.gameObject.SetActive(true);
+        }
     }
 
     void UpdateGroundedStatus()
@@ -83,6 +93,12 @@ public class MouseController : MonoBehaviour {
     void CollectCoin(Collider2D coinCollider)
     {
         coins++;
+        coinsCollectedLabel.text = coins.ToString();
         Destroy(coinCollider.gameObject);
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("RocketMouse");
     }
 }
