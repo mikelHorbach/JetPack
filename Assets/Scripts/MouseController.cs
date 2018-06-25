@@ -127,4 +127,10 @@ public class MouseController : MonoBehaviour {
             jetpackAudio.volume = 0.5f;
         }
     }
+
+    public void pause()
+    {
+        if (Time.timeScale == 0) Time.timeScale = 1;
+        else Time.timeScale = 0;
+    }
 }
