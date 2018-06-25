@@ -96,9 +96,15 @@ public class GenerateScripts : MonoBehaviour {
 
     void AddObject(float lastObjectX)
     {
-        int randomIndex = Random.Range(0, availableObjects.Length);
-
-        GameObject obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+        GameObject obj = null;
+        int rand = Random.Range(0, 3);
+        if (rand == 2) obj = (GameObject)Instantiate(availableObjects[10]); 
+        else if (rand<2)
+        {
+            int randomIndex = Random.Range(0, availableObjects.Length);
+            obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+        }
+         
         
         float objectPositionX = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
         float randomY = Random.Range(objectsMinY, objectsMaxY);
