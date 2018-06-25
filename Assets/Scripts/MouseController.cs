@@ -24,6 +24,7 @@ public class MouseController : MonoBehaviour {
     public AudioSource jetpackAudio;
     public AudioSource footstepsAudio;
     public ParallaxScroll parallax;
+    public GameObject coinsTxt;
 
     private uint coef = 1;
     private bool isProtected = false;
@@ -143,6 +144,8 @@ public class MouseController : MonoBehaviour {
     }
     void incr()
     {
+        coinsTxt.SetActive(true);
+       // print(coinsTxt.enabled);
         StartCoroutine(doubleMonets());
     }
 
@@ -161,6 +164,7 @@ public class MouseController : MonoBehaviour {
     {
         yield return new WaitForSeconds(15.0f);
         coef = 1;
+        coinsTxt.SetActive(false);
     }
 
     IEnumerator doProtect()
