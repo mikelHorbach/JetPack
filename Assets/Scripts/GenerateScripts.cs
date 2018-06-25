@@ -97,18 +97,23 @@ public class GenerateScripts : MonoBehaviour {
     void AddObject(float lastObjectX)
     {
 
-       // 3 2 1
+       // 4 2 1
         GameObject obj = null;
-        int rand = Random.Range(0, 6);
-        if (rand == 3 || rand == 4) obj = (GameObject)Instantiate(availableObjects[10]);
-        else if (rand < 3)
+        int rand = Random.Range(0, 8);
+        if (rand == 4 || rand == 5) obj = (GameObject)Instantiate(availableObjects[10]);
+        else if (rand < 4)
         {
             int randomIndex = Random.Range(0, 10);
             obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         }
-        else if (rand == 5 )
+        else if (rand == 6 )
         {
             int randomIndex = Random.Range(11, 13);
+            obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+        }
+        else if (rand == 7)
+        {
+            int randomIndex = Random.Range(13, 14);
             obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         }
 
@@ -119,7 +124,7 @@ public class GenerateScripts : MonoBehaviour {
         float randomY = Random.Range(objectsMinY, objectsMaxY);
         obj.transform.position = new Vector3(objectPositionX, randomY, 0);
 
-        if (rand != 5)
+        if (rand != 6 && rand !=7)
         {
             float rotation = Random.Range(objectsMinRotation, objectsMaxRotation);
             obj.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
