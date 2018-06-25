@@ -24,6 +24,7 @@ public class MouseController : MonoBehaviour {
     public ParallaxScroll parallax;
 
     private uint coef = 1;
+    private bool isProtected = false;
 
     // Use this for initialization
     void Start () {
@@ -91,13 +92,18 @@ public class MouseController : MonoBehaviour {
 
         else if (collider.gameObject.CompareTag("Pig"))
         {
-            hitByPig();
+            hitByPig(collider);
         }
-       
+        else if (collider.gameObject.CompareTag("Protection"))
+        {
+            hitByProtect(collider);
+        }
+
     }
 
     void HitByLaser(Collider2D laserCollider)
     {
+        if (!isProtected) { 
         if (!isDead)
         {
             AudioSource laserZap = laserCollider.gameObject.GetComponent<AudioSource>();
@@ -105,6 +111,7 @@ public class MouseController : MonoBehaviour {
         }
         isDead = true;
         mouseAnimator.SetBool("isDie", true);
+    }
     }
 
     void CollectCoin(Collider2D coinCollider)
@@ -115,9 +122,50 @@ public class MouseController : MonoBehaviour {
         AudioSource.PlayClipAtPoint(coinCollectSound, transform.position);
     }
 
-    void hitByPig()
+    void hitByPig(Collider2D collider)
     {
+       Destroy(collider.gameObject);
         coef = 2;
+        incr();
+    }
+
+    void hitByProtect(Collider2D collider)
+    {
+        protect();
+        Destroy(collider.gameObject);
+    }
+    void incr()
+    {
+        StartCoroutine(doubleMonets());
+    }
+
+    void slowTime()
+    {
+
+    }
+
+    void protect()
+    {
+        isProtected = true;
+        StartCoroutine(doProtect());
+    }
+
+    IEnumerator doubleMonets()
+    {
+        yield return new WaitForSeconds(15.0f);
+        coef = 1;
+    }
+
+    IEnumerator doProtect()
+    {
+        yield return new WaitForSeconds(15.0f);
+        isProtected = false;
+    }
+
+    IEnumerator slow()
+    {
+        yield return new WaitForSeconds(15.0f);
+        coef = 1;
     }
 
     public void RestartGame()
