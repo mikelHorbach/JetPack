@@ -23,6 +23,7 @@ public class MouseController : MonoBehaviour {
     public AudioSource footstepsAudio;
     public ParallaxScroll parallax;
 
+    private uint coef = 1;
 
     // Use this for initialization
     void Start () {
@@ -83,9 +84,14 @@ public class MouseController : MonoBehaviour {
         {
             CollectCoin(collider);
         }
-        else
+        else if (collider.gameObject.CompareTag("Laser"))
         {
             HitByLaser(collider);
+        }
+
+        else if (collider.gameObject.CompareTag("Pig"))
+        {
+            hitByPig();
         }
        
     }
@@ -103,10 +109,15 @@ public class MouseController : MonoBehaviour {
 
     void CollectCoin(Collider2D coinCollider)
     {
-        coins++;
+        coins+=(1*coef);
         coinsCollectedLabel.text = coins.ToString();
         Destroy(coinCollider.gameObject);
         AudioSource.PlayClipAtPoint(coinCollectSound, transform.position);
+    }
+
+    void hitByPig()
+    {
+        coef = 2;
     }
 
     public void RestartGame()
@@ -133,4 +144,6 @@ public class MouseController : MonoBehaviour {
         if (Time.timeScale == 0) Time.timeScale = 1;
         else Time.timeScale = 0;
     }
+
+    
 }
