@@ -96,23 +96,34 @@ public class GenerateScripts : MonoBehaviour {
 
     void AddObject(float lastObjectX)
     {
+
+       // 3 2 1
         GameObject obj = null;
-        int rand = Random.Range(0, 3);
-        if (rand == 2) obj = (GameObject)Instantiate(availableObjects[10]); 
-        else if (rand<2)
+        int rand = Random.Range(0, 6);
+        if (rand == 3 || rand == 4) obj = (GameObject)Instantiate(availableObjects[10]);
+        else if (rand < 3)
         {
-            int randomIndex = Random.Range(0, availableObjects.Length);
+            int randomIndex = Random.Range(0, 10);
             obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         }
+        else if (rand == 5 )
+        {
+            int randomIndex = Random.Range(11, 13);
+            obj = (GameObject)Instantiate(availableObjects[randomIndex]);
+        }
+
+        print(rand);
          
         
         float objectPositionX = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
         float randomY = Random.Range(objectsMinY, objectsMaxY);
         obj.transform.position = new Vector3(objectPositionX, randomY, 0);
-        
-        float rotation = Random.Range(objectsMinRotation, objectsMaxRotation);
-        obj.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
-        
+
+        if (rand != 5)
+        {
+            float rotation = Random.Range(objectsMinRotation, objectsMaxRotation);
+            obj.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
+        }
         objects.Add(obj);
     }
 
@@ -128,7 +139,7 @@ public class GenerateScripts : MonoBehaviour {
         List<GameObject> objectsToRemove = new List<GameObject>();
         foreach (var obj in objects)
         {
-            
+           
             float objX = obj.transform.position.x;
             
             farthestObjectX = Mathf.Max(farthestObjectX, objX);

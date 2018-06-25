@@ -25,6 +25,7 @@ public class MouseController : MonoBehaviour {
     public AudioSource footstepsAudio;
     public ParallaxScroll parallax;
     public GameObject coinsTxt;
+    public GameObject prot;
 
     private uint coef = 1;
     private bool isProtected = false;
@@ -145,8 +146,8 @@ public class MouseController : MonoBehaviour {
 
     void hitByProtect(Collider2D collider)
     {
-        protect();
         Destroy(collider.gameObject);
+        protect();
     }
     void incr()
     {
@@ -163,6 +164,7 @@ public class MouseController : MonoBehaviour {
     void protect()
     {
         isProtected = true;
+        prot.SetActive(true);
         StartCoroutine(doProtect());
     }
 
@@ -177,6 +179,7 @@ public class MouseController : MonoBehaviour {
     {
         yield return new WaitForSeconds(15.0f);
         isProtected = false;
+        prot.SetActive(false);
     }
 
     IEnumerator slow()
