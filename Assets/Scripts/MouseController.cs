@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MouseController : MonoBehaviour {
 
+    public static MouseController mouse;
+
     public float jetpackForce = 75.0f;
     public float forwardSpeed = 3.0f;
     private Rigidbody2D body;
@@ -25,6 +27,11 @@ public class MouseController : MonoBehaviour {
 
     private uint coef = 1;
     private bool isProtected = false;
+
+    void Awake()
+    {
+        mouse = this;
+    }
 
     // Use this for initialization
     void Start () {
