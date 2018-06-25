@@ -122,6 +122,12 @@ public class MouseController : MonoBehaviour {
     }
     }
 
+    public void Die()
+    {
+        isDead = true;
+        mouseAnimator.SetBool("isDie", true);
+    }
+
     void CollectCoin(Collider2D coinCollider)
     {
         coins+=(1*coef);
