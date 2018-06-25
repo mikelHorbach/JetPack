@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fireBall : MonoBehaviour {
+public class FireBall : MonoBehaviour {
 
     public float speed = 4;
+    public float angle = 0;
 
     void Start()
     {
@@ -13,7 +14,7 @@ public class fireBall : MonoBehaviour {
 
     IEnumerator destroyLater()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(4.0f);
         Destroy(this.gameObject);
     }
 
@@ -28,10 +29,11 @@ public class fireBall : MonoBehaviour {
            
     }
 
-
-    public void launch()
+    public void launch(float angle2)
     {
-        GetComponent<Rigidbody2D>().velocity = new Vector2( -speed, 0);
+        angle = angle2;
+        this.transform.rotation = new UnityEngine.Quaternion(0,0,angle,90);
+        GetComponent<Rigidbody2D>().velocity = new Vector2( -speed*Mathf.Cos(Mathf.PI*angle/180), -speed * Mathf.Sin(Mathf.PI * angle / 180));
         GetComponent<SpriteRenderer>().flipX = true;
     }
 
