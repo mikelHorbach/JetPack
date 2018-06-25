@@ -8,7 +8,7 @@ public class MouseController : MonoBehaviour {
 
     public static MouseController mouse;
 
-    public float jetpackForce = 75.0f;
+    public float jetpackForce = 60.0f;
     public float forwardSpeed = 3.0f;
     private Rigidbody2D body;
     public Transform groundCheckTransform;
@@ -29,6 +29,8 @@ public class MouseController : MonoBehaviour {
 
     private uint coef = 1;
     private bool isProtected = false;
+    private bool inPigMode = false;
+    private bool inPigMode2 = false;
 
     void Awake()
     {
@@ -140,6 +142,8 @@ public class MouseController : MonoBehaviour {
     void hitByPig(Collider2D collider)
     {
        Destroy(collider.gameObject);
+        if (inPigMode) inPigMode2 = true;
+        inPigMode = true;
         coef = 2;
         incr();
     }
@@ -171,8 +175,15 @@ public class MouseController : MonoBehaviour {
     IEnumerator doubleMonets()
     {
         yield return new WaitForSeconds(15.0f);
-        coef = 1;
-        coinsTxt.SetActive(false);
+        if (!inPigMode2)
+        {
+            coef = 1;
+            coinsTxt.SetActive(false);
+        }
+        else
+        {
+            inPigMode2 = false;
+        }
     }
 
     IEnumerator doProtect()
