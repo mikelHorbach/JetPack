@@ -21,6 +21,7 @@ public class MouseController : MonoBehaviour {
     public AudioClip coinCollectSound;
     public AudioSource jetpackAudio;
     public AudioSource footstepsAudio;
+    public ParallaxScroll parallax;
 
 
     // Use this for initialization
@@ -53,6 +54,7 @@ public class MouseController : MonoBehaviour {
             restartButton.gameObject.SetActive(true);
         }
         AdjustFootstepsAndJetpackSound(jetpackActive);
+        parallax.offset = transform.position.x;
     }
 
     void UpdateGroundedStatus()
