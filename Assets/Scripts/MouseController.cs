@@ -19,7 +19,7 @@ public class MouseController : MonoBehaviour {
     private bool isDead = false;
     private uint coins = 0;
     public Text coinsCollectedLabel;
-    public Button restartButton;
+    public GameObject restartButton;
     public AudioClip coinCollectSound;
     public AudioSource jetpackAudio;
     public AudioSource footstepsAudio;
@@ -33,6 +33,13 @@ public class MouseController : MonoBehaviour {
     private bool isProtected = false;
     private bool inPigMode = false;
     private bool inPigMode2 = false;
+
+
+    [SerializeField]
+    private Text scoreLabel;
+
+    [SerializeField]
+    private Text sc;
 
     void Awake()
     {
@@ -66,7 +73,8 @@ public class MouseController : MonoBehaviour {
 
         if (isDead && isGrounded)
         {
-            restartButton.gameObject.SetActive(true);
+            restartButton.SetActive(true);
+            scoreLabel.text = sc.text;
         }
         AdjustFootstepsAndJetpackSound(jetpackActive);
         parallax.offset = transform.position.x;
