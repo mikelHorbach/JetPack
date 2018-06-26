@@ -134,13 +134,14 @@ public class GenerateScripts : MonoBehaviour {
             obj.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
         }
         objects.Add(obj);
-        if (rand == 6 || rand < 1)
+        if (rand == 6 || rand == 0)
         {
             obj = (GameObject)Instantiate(availableObjects[14]);
             float objectPositionX1 = lastObjectX + Random.Range(objectsMinDistance, objectsMaxDistance);
             float randomY1 = Random.Range(objectsMinY, objectsMaxY);
             obj.transform.position = new Vector3(objectPositionX1, randomY1, 0);
         }
+        
     }
 
 
