@@ -16,9 +16,6 @@ public class GameOverScript : MonoBehaviour {
 
 
     [SerializeField]
-    private Text scoreLabel;
-
-    [SerializeField]
     private InputField nameField;
 
     [SerializeField]
@@ -30,7 +27,6 @@ public class GameOverScript : MonoBehaviour {
     [SerializeField]
     private Button restartButton;
 
-    int am =0;
 
     void Awake()
     {
@@ -43,7 +39,6 @@ public class GameOverScript : MonoBehaviour {
             {
                 statistics[i] = new LevelStat();
             }
-            else am++;
         }
     }
 
@@ -57,30 +52,23 @@ public class GameOverScript : MonoBehaviour {
     {
         losePanel.SetActive(false);
 
-        for(int i = 0; i < am; i++)
+        if (statistics[4].score=="")
         {
-            if (System.String.Compare(statistics[i].score, thisScore.text, true)<=0)
+            statistics[4].name = nameField.text;
+            statistics[4].score = thisScore.text;
+            BubbleSort(statistics);
+        }
+        else
+        {
+            if(compareStrings(thisScore.text, statistics[4].score) >= 0)
             {
-               
-                for (int j = i + 1; j < am; j++)
-                {
-                    statistics[j].name = statistics[j - 1].name;
-                    statistics[j].score = statistics[j-1].score;
-                }
-                statistics[i].name = nameField.text;
-                statistics[i].score = thisScore.text;
-                break;
+                statistics[4].name = nameField.text;
+                statistics[4].score = thisScore.text;
+                BubbleSort(statistics);
             }
         }
 
-        if (am < 5 && statistics[am].name=="")
-        {
-            statistics[am].name = nameField.text;
-            statistics[am].score = thisScore.text;
-            am++;
-        }
-
-        for (int i = 0; i < am; i++)
+        for (int i = 0; i < 5; i++)
         {
             names[i].text = statistics[i].name;
             scores[i].text = statistics[i].score;
@@ -89,16 +77,47 @@ public class GameOverScript : MonoBehaviour {
         statPanel.SetActive(true);
     }
 
+ 
+
+    void BubbleSort(LevelStat[] A)
+    {
+        for (int i = 0; i < A.Length; i++)
+        {
+            for (int j = 0; j < A.Length - i - 1; j++)
+            {
+                if (compareStrings(A[j].score,A[j + 1].score)<0)
+                {
+                    LevelStat temp = A[j];
+                    A[j] = A[j + 1];
+                    A[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    int compareStrings(string s1,string s2)
+    {
+        if (s1.Length > s2.Length) return 1;
+        if (s1.Length < s2.Length) return -1;
+        for (int i = 0; i < s1.Length; i++)
+            if (s1[i] > s2[i]) return 1;
+            else if (s1[i] < s2[i]) return -1;
+        return 0;
+    }
+
 
     public void closeStat()
     {
         statPanel.SetActive(false);
+        losePanel.SetActive(false);
+        Time.timeScale = 0;
         restartButton.gameObject.SetActive(true);
     }
 
     private void OnDestroy()
     {
-        for (int i = 0; i < am; i++)
+        Debug.Log(statistics);
+        for (int i = 0; i < 5; i++)
         {
             string str = JsonUtility.ToJson(statistics[i]);
             PlayerPrefs.SetString("top" + i, str);

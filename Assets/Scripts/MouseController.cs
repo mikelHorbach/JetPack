@@ -16,7 +16,7 @@ public class MouseController : MonoBehaviour {
     public LayerMask groundCheckLayerMask;
     private Animator mouseAnimator;
     public ParticleSystem jetpack;
-    private bool isDead = false;
+    public bool isDead = false;
     private uint coins = 0;
     public Text coinsCollectedLabel;
     public GameObject restartButton;
@@ -217,6 +217,7 @@ public class MouseController : MonoBehaviour {
     public void RestartGame()
     {
         SceneManager.LoadScene("RocketMouse.unity");
+        Time.timeScale = 1;
     }
 
     void AdjustFootstepsAndJetpackSound(bool jetpackActive)
