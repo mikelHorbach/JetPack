@@ -113,7 +113,7 @@ public class GenerateScripts : MonoBehaviour {
         }
         else if (rand == 7)
         {
-            int randomIndex = Random.Range(13, 14);
+            int randomIndex = Random.Range(13, 15);
             obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         }
 
