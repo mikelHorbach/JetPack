@@ -99,7 +99,7 @@ public class GenerateScripts : MonoBehaviour {
 
        // 4 2 1
         GameObject obj = null;
-        int rand = Random.Range(0, 8);
+        int rand = Random.Range(0, 9);
         if (rand == 4 || rand == 5) obj = (GameObject)Instantiate(availableObjects[10]);
         else if (rand < 4)
         {
@@ -116,6 +116,10 @@ public class GenerateScripts : MonoBehaviour {
             int randomIndex = Random.Range(13, 15);
             obj = (GameObject)Instantiate(availableObjects[randomIndex]);
         }
+        else if (rand ==8)
+        {
+            obj = (GameObject)Instantiate(availableObjects[15]);
+        }
 
         print(rand);
          
@@ -124,7 +128,7 @@ public class GenerateScripts : MonoBehaviour {
         float randomY = Random.Range(objectsMinY, objectsMaxY);
         obj.transform.position = new Vector3(objectPositionX, randomY, 0);
 
-        if (rand != 6 && rand !=7)
+        if (rand != 6 && rand !=7 && rand !=8)
         {
             float rotation = Random.Range(objectsMinRotation, objectsMaxRotation);
             obj.transform.rotation = Quaternion.Euler(Vector3.forward * rotation);
