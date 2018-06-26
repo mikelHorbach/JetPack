@@ -110,9 +110,31 @@ public class GameOverScript : MonoBehaviour {
     {
         statPanel.SetActive(false);
         losePanel.SetActive(false);
-        Time.timeScale = 0;
-        restartButton.gameObject.SetActive(true);
+        if (Time.timeScale != 0)
+        {
+            Time.timeScale = 0;
+            restartButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+        
     }
+
+
+    public void showStat2()
+    {
+        Time.timeScale = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            names[i].text = statistics[i].name;
+            scores[i].text = statistics[i].score;
+        }
+
+        statPanel.SetActive(true);
+    }
+
 
     private void OnDestroy()
     {
@@ -125,5 +147,8 @@ public class GameOverScript : MonoBehaviour {
         }
             
     }
+
+
+
 
 }
