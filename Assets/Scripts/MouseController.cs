@@ -23,6 +23,8 @@ public class MouseController : MonoBehaviour {
     public AudioClip coinCollectSound;
     public AudioSource jetpackAudio;
     public AudioSource footstepsAudio;
+    public AudioSource lose;
+    public AudioSource collectShield;
     public ParallaxScroll parallax;
     public GameObject coinsTxt;
     public GameObject prot;
@@ -122,6 +124,7 @@ public class MouseController : MonoBehaviour {
         }
         isDead = true;
         mouseAnimator.SetBool("isDie", true);
+            StartCoroutine(losePlay());
     }
     }
 
@@ -129,6 +132,7 @@ public class MouseController : MonoBehaviour {
     {
         isDead = true;
         mouseAnimator.SetBool("isDie", true);
+        StartCoroutine(losePlay());
     }
 
     void CollectCoin(Collider2D coinCollider)
@@ -142,15 +146,18 @@ public class MouseController : MonoBehaviour {
     void hitByPig(Collider2D collider)
     {
        Destroy(collider.gameObject);
+        collectShield.Play();
         if (inPigMode) inPigMode2 = true;
         inPigMode = true;
         coef = 2;
         incr();
+
     }
 
     void hitByProtect(Collider2D collider)
     {
         Destroy(collider.gameObject);
+        collectShield.Play();
         protect();
     }
     void incr()
@@ -193,10 +200,10 @@ public class MouseController : MonoBehaviour {
         prot.SetActive(false);
     }
 
-    IEnumerator slow()
+    IEnumerator losePlay()
     {
-        yield return new WaitForSeconds(15.0f);
-        coef = 1;
+        yield return new WaitForSeconds(0.5f);
+        lose.Play();
     }
 
     public void RestartGame()
