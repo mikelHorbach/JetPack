@@ -33,6 +33,7 @@ public class MouseController : MonoBehaviour {
     private bool isProtected = false;
     private bool inPigMode = false;
     private bool inPigMode2 = false;
+    private bool isProtected2 = false;
 
 
     [SerializeField]
@@ -124,7 +125,7 @@ public class MouseController : MonoBehaviour {
 
     void HitByLaser(Collider2D laserCollider)
     {
-        if (!isProtected) { 
+        if (!isProtected || !isProtected2) { 
         if (!isDead)
         {
             AudioSource laserZap = laserCollider.gameObject.GetComponent<AudioSource>();
@@ -182,6 +183,7 @@ public class MouseController : MonoBehaviour {
 
     void protect()
     {
+        if (isProtected) isProtected2 = true;
         isProtected = true;
         prot.SetActive(true);
         StartCoroutine(doProtect());
@@ -204,8 +206,15 @@ public class MouseController : MonoBehaviour {
     IEnumerator doProtect()
     {
         yield return new WaitForSeconds(15.0f);
-        isProtected = false;
-        prot.SetActive(false);
+        if ((!isProtected2))
+        {
+            isProtected = false;
+            prot.SetActive(false);
+        }
+        else
+        {
+            isProtected2 = false;
+        }
     }
 
     IEnumerator losePlay()
